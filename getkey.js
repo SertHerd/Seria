@@ -14,7 +14,40 @@ const currentUrl = window.location.href;
 const urlObject = new URL(currentUrl);
 
 const hwid = urlObject.searchParams.get("hwid");
+async function gen_key(chuso) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = 'HN-';
+    const charactersLength = characters.length;
+    for (let i = 0; i < chuso; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
 
+async function create_note(content,title) {
+    try {
+        const response = await axios.get(`https://web1s.com/note-api?token=${config.api_note}&content=${content}&title=${title}`)
+        console.log("Data: ", response.data);
+        console.log("Link rút gọn: ", response.data.shortenedUrl);
+        return response.data.shortenedUrl
+    } catch (error) {
+        console.error('Yêu cầu thất bại:', error.message);
+        return null;
+    }
+}
+
+async function gen_link_get_key(code) {
+    try {
+        const destinationUrl = await create_note(`PS99 AUTO RANK KEY: ${code}`, `From HN GAMING With Love`);
+        const response = await axios.get(`https://web1s.com/api?token=${config.api_link}&url=${destinationUrl}`)
+        console.log("Data: ", response.data);
+        console.log("Link rút gọn: ", response.data.shortenedUrl);
+        return response.data.shortenedUrl
+    } catch (error) {
+        console.error('Yêu cầu thất bại:', error.message);
+        return null;
+    }
+}
 if (hwid) {
   console.log("hwid:", hwid);
       if (data[hwid]) {
