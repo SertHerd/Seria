@@ -1,5 +1,5 @@
-const axios = require('axios');
-const moment = require('moment-timezone');
+import axios from 'axios';
+import moment from 'moment-timezone';
 const currentUrl = window.location.href;
 
 const urlObject = new URL(currentUrl);
