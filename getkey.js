@@ -1,7 +1,6 @@
 import axios from 'axios';
 import moment from 'moment-timezone';
 const currentUrl = window.location.href;
-
 const urlObject = new URL(currentUrl);
 
 const hwid = urlObject.searchParams.get("hwid");
