@@ -1,3 +1,4 @@
+print("code by seria")
 local function main()
     while true do
 local HttpService = game:GetService("HttpService")
