@@ -430,6 +430,7 @@ local function main()
 
             local function createWebhookData()
                 local webhookcheck = detectExecutor()
+                print("Webhook Check:", webhookcheck)
                 if table.concat(sworditem) == "" then
                     table.insert(sworditem, "None")
                 elseif table.concat(gunitem) == "" then
@@ -539,7 +540,7 @@ local function main()
                         }
                     }
                 }
-
+                print("Webhook Data:", HttpService:JSONEncode(data))
                 return HttpService:JSONEncode(data)
             end
 
