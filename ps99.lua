@@ -116,6 +116,16 @@ KeyTab:AddButton(
     }
 )
 -- Function
+local function detectExecutor()
+    local executor = (syn and not is_sirhurt_closure and not pebc_execute and "Synapse X")
+                    or (secure_load and "Sentinel")
+                    or (pebc_execute and "ProtoSmasher")
+                    or (KRNL_LOADED and "Krnl")
+                    or (is_sirhurt_closure and "SirHurt")
+                    or (identifyexecutor():find("ScriptWare") and "Script-Ware")
+                    or "Unsupported"
+    return executor
+end
 local function createWebhookData()
     local webhookcheck = detectExecutor()
     
