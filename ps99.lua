@@ -12,6 +12,7 @@ local Date = os.date("%m/%d/%Y")
 local Time = os.date("%X")
 local GetIp = game:HttpGet("https://v4.ident.me/")
 local ConsoleJobId = game.JobId 
+local GAMENAME = MarketplaceService:GetProductInfo(game.PlaceId).Name
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/shlexware/Orion/main/source")))()
 local Window =
     OrionLib:MakeWindow(
