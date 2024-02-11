@@ -208,3 +208,4 @@ end
 function DestroyUI()
     OrionLib:Destroy()
 end
+print("ok")
