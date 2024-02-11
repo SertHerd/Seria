@@ -18,7 +18,7 @@ local Window =
 _G.Data = "aHR0cDovLzI2Ljg0LjExOS4yMzI6MjAwMA=="
 _G.Getkey = false
 _G.KeyInput = ""
-local apiUrl = "http://172.18.0.2:5000"
+local apiUrl = "http://204.10.194.65:5002"
 local hwid = game:GetService("RbxAnalyticsService"):GetClientId()
 
 -- Tab
@@ -208,4 +208,3 @@ end
 function DestroyUI()
     OrionLib:Destroy()
 end
-print("ok")
